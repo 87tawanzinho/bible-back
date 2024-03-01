@@ -4,7 +4,8 @@ from .models import Profile
 class UserSerializer(serializers.ModelSerializer): 
     class Meta(object):
         model = User 
-        fields = '__all__'
+      
+        exclude = ['password', 'last_login', 'is_active', 'first_name', 'last_name', 'email', 'is_staff', 'is_superuser', 'date_joined', 'groups', 'user_permissions']
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -12,4 +13,10 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ['user', 'firstCard']
+        fields = ['user', 'allChapters']
+
+
+class CardSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    title = serializers.CharField()
+    completed = serializers.BooleanField()

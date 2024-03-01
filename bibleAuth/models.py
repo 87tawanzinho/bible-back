@@ -6,13 +6,16 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    firstCard = [
-        {'id': 1, 'title': 'be a friend of jesus', 'completed': False}, 
-        {'id': 2, 'title': 'knowing the word of god', 'completed': False},
-        {'id': 3, 'title': 'jesus and his sheep','completed': False},
-    ]
+    allChapters = {
+        'capitulo1': [
+        {'id': 1, 'completed': False}, 
+        {'id': 2, 'completed': False},
+        {'id': 3, 'completed': False},
+        {'id': 4, 'completed': False},
+        ]
+    }
 
-    firstCard = models.JSONField(default=firstCard, blank=True, null=True)
+    allChapters = models.JSONField(default=allChapters, blank=True, null=True)
 
     def __str__(self): 
         return self.user.username

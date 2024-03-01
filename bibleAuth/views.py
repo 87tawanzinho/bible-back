@@ -1,14 +1,16 @@
-from rest_framework.decorators import api_view 
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response 
 
-from .serializers import UserSerializer,ProfileSerializer
+from .serializers import UserSerializer,ProfileSerializer, CardSerializer
 from rest_framework import status 
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import  User 
 from django.shortcuts import get_object_or_404
-
-
-
+from .models import Profile
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import authentication_classes, permission_classes 
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 @api_view(['POST'])
 def login(request):
@@ -20,8 +22,7 @@ def login(request):
     profile_serializer = ProfileSerializer(instance=user.profile)
     return Response({"token": token.key, "user": profile_serializer.data })
     
-
-
+       
 @api_view(['POST'])
 def signup(request):
     serializer = UserSerializer(data=request.data)
@@ -35,9 +36,6 @@ def signup(request):
     return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
 
-from rest_framework.decorators import authentication_classes, permission_classes 
-from rest_framework.authentication import SessionAuthentication, TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
 
 
 
@@ -48,6 +46,21 @@ def test_token(request):
     return Response("Sucess{}".format(request.user.email))
 
 
+#rota para terminar uma tarefa 
+@api_view(['POST'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def completed_this_card(request, chapter, card_id):
+    profile = get_object_or_404(Profile, user=request.user)
+    card_index = next((index for index, card in enumerate(profile.allChapters[chapter]) if card['id'] == int(card_id)), None)
+    
+    if card_index is not None: 
+        profile.allChapters[chapter][card_index]['completed'] = not profile.allChapters[chapter][card_index]['completed']
+        profile.save()
+        return Response(profile.allChapters[chapter])
+
+    else:
+        return Response("not found")
 
 
 
