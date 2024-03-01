@@ -1,11 +1,15 @@
 from rest_framework.decorators import api_view 
 from rest_framework.response import Response 
 
-from .serializers import UserSerializer 
+from .serializers import UserSerializer,ProfileSerializer
 from rest_framework import status 
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import  User 
 from django.shortcuts import get_object_or_404
+
+
+
+
 @api_view(['POST'])
 def login(request):
     user = get_object_or_404(User, username=request.data['username'])
@@ -13,8 +17,9 @@ def login(request):
         return Response({"detail": "Not Found"}, status=status.HTTP_404_NOT_FOUND)
     token, created = Token.objects.get_or_create(user=user)
     serializer = UserSerializer(instance=user)
-    return Response({"token": token.key, "user": serializer.data})
-    return Response({})
+    profile_serializer = ProfileSerializer(instance=user.profile)
+    return Response({"token": token.key, "user": profile_serializer.data })
+    
 
 
 @api_view(['POST'])
