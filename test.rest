@@ -27,3 +27,8 @@ Content-Type: application/json
 Authorization: Token 2725a5d1c18bb6e78f35cd3bf1346a7cb442633b
 ###
 
+GET http://127.0.0.1:8000/take_cards/
+Content-Type: application/json 
+Authorization: Token 2725a5d1c18bb6e78f35cd3bf1346a7cb442633b
+###
+

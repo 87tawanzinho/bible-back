@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response 
 
-from .serializers import UserSerializer,ProfileSerializer, CardSerializer
+from .serializers import UserSerializer,ProfileSerializer
 from rest_framework import status 
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import  User 
@@ -44,6 +44,18 @@ def signup(request):
 @permission_classes([IsAuthenticated])
 def test_token(request):
     return Response("Sucess{}".format(request.user.email))
+
+
+
+#rota para pegar as tarefas
+@api_view(['GET'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def take_cards(request): 
+    profile = get_object_or_404(Profile, user=request.user)
+    serializer = ProfileSerializer(profile)
+    return Response(serializer.data)
+
 
 
 #rota para terminar uma tarefa 

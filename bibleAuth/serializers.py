@@ -16,7 +16,5 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ['user', 'allChapters']
 
 
-class CardSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    title = serializers.CharField()
-    completed = serializers.BooleanField()
+
+
