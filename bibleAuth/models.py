@@ -7,7 +7,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     allChapters = {
-        'capitulo1': [
+        'firstChapter': [
         {'id': 1, 'completed': False}, 
         {'id': 2, 'completed': False},
         {'id': 3, 'completed': False},
