@@ -16,5 +16,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ['user', 'allChapters']
 
 
+class UserWithoutChapter(serializers.ModelSerializer):
+    user = UserSerializer()
 
+    class Meta:
+        model = Profile 
+        fields = ['user', 'devotionalWarn']
 

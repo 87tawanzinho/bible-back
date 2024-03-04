@@ -9,7 +9,7 @@ Content-Type: application/json
 POST http://127.0.0.1:8000/signup
 Content-Type: application/json 
 
-{ "username":"taw31", "password": "1", "email": "123@gmail.com" }
+{ "username":"taw48", "password": "1", "email": "123@gmail.com" }
 
 ###
 
@@ -32,3 +32,13 @@ Content-Type: application/json
 Authorization: Token 2725a5d1c18bb6e78f35cd3bf1346a7cb442633b
 ###
 
+
+GET http://127.0.0.1:8000/change_warn/
+Content-Type: application/json 
+Authorization: Token b45168fd3cc38233aee732bfac516db758201023
+###
+
+GET http://127.0.0.1:8000/take_user_data/
+Content-Type: application/json 
+Authorization: Token b45168fd3cc38233aee732bfac516db758201023
+###

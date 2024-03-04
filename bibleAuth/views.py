@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response 
 
-from .serializers import UserSerializer,ProfileSerializer
+from .serializers import UserSerializer,ProfileSerializer, UserWithoutChapter
 from rest_framework import status 
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import  User 
@@ -46,6 +46,27 @@ def test_token(request):
     return Response("Sucess{}".format(request.user.email))
 
 
+
+#rota para pegar os dados do usuario
+@api_view(['GET'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def take_user_data(request):
+    profile = get_object_or_404(Profile, user=request.user)
+    serializer = UserWithoutChapter(profile)
+    return Response(serializer.data)
+
+
+
+#rota para mudar o aviso de devotional 
+@api_view(['GET'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def change_warn(request):
+    profile = get_object_or_404(Profile, user=request.user)
+    profile.devotionalWarn = not profile.devotionalWarn 
+    profile.save()
+    return Response(f"Mudado com sucesso. {profile.devotionalWarn}")
 
 #rota para pegar as tarefas
 @api_view(['GET'])
