@@ -42,3 +42,17 @@ GET http://127.0.0.1:8000/take_user_data/
 Content-Type: application/json 
 Authorization: Token b45168fd3cc38233aee732bfac516db758201023
 ###
+
+
+GET http://127.0.0.1:8000/take_text/
+Content-Type: application/json 
+
+###
+
+
+
+### 
+POST http://127.0.0.1:8000/create_text/
+Content-Type: application/json 
+
+{ "title": "O deuss", "content": "O jessus", "version": "nvssi" }

@@ -6,6 +6,7 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
+
     allChapters = {
         'firstChapter': [
         {'id': 1, 'completed': False}, 
@@ -17,6 +18,8 @@ class Profile(models.Model):
 
     allChapters = models.JSONField(default=allChapters, blank=True, null=True)
     devotionalWarn = models.BooleanField(default=False) 
+
+    
 
     def __str__(self): 
         return self.user.username
