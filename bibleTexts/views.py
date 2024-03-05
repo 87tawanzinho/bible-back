@@ -30,7 +30,9 @@ def take_text(request):
         'title': text_to_return.title,
         'content': text_to_return.content,
         'version': text_to_return.version,
-        'concluded': text_to_return.concluded
+        'concluded': text_to_return.concluded,
+        'summary': text_to_return.summary,
+        'chapter': text_to_return.chapter
     }
 
     return Response(response)
