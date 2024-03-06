@@ -3,7 +3,12 @@
     {
       "src": "biblebackend/wsgi.py",
       "use": "@vercel/python",
-      "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
+      "config": {
+        "maxLambdaSize": "15mb",
+        "runtime": "python3.9",
+        "pg_config": "/path/to/pg_config",
+        "buildCommand": "apt-get install libpq-dev && npm install"
+      }
     }
   ],
   "routes": [
