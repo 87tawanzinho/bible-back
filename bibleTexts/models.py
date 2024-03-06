@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class TextsDevotional(models.Model):
@@ -8,4 +8,4 @@ class TextsDevotional(models.Model):
     content = models.TextField()
     version = models.CharField(max_length=10)
     chapter = models.CharField(max_length=30)
-    concluded = models.BooleanField(default=False) 
+    concluded_by = models.ManyToManyField(User, related_name='concluded_devotionals')

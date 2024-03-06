@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from .serializer import TextSerializer
 from .models import TextsDevotional
 from datetime import date 
@@ -26,13 +28,35 @@ def take_text(request):
 
     text_to_return = TextsDevotional.objects.all()[indice_text]
 
+    concluded_by_users = text_to_return.concluded_by.all()
+
+    concluded_by_usernames = [user.username for user in concluded_by_users]
+
+
     response = {
+        'id': text_to_return.id, 
         'title': text_to_return.title,
         'content': text_to_return.content,
         'version': text_to_return.version,
-        'concluded': text_to_return.concluded,
         'summary': text_to_return.summary,
-        'chapter': text_to_return.chapter
+        'chapter': text_to_return.chapter,
+        'concluded_by': concluded_by_usernames
     }
 
     return Response(response)
+
+
+# concluir devocional 
+@api_view(['POST'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def conclude_devotional(request, devotionalPk):
+    user = request.user
+    try:
+        devotional = TextsDevotional.objects.get(pk=devotionalPk)
+    except TextsDevotional.DoesNotExist:
+        return Response ("Devocional não existe.")  
+
+    devotional.concluded_by.add(user) 
+    devotional.save()
+    return Response("Concluido com sucesso.")
