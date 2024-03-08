@@ -21,5 +21,5 @@ class UserWithoutChapter(serializers.ModelSerializer):
 
     class Meta:
         model = Profile 
-        fields = ['user', 'devotionalWarn']
+        fields = ['user', 'devotionalWarn', 'myBirds']
 
