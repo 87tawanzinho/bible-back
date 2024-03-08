@@ -5,7 +5,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from .serializer import TextSerializer
 from .models import TextsDevotional
+from bibleAuth.models import Profile
 from datetime import date 
+from django.apps import apps
+from django.shortcuts import get_object_or_404
+modelProfile = apps.get_model('bibleAuth', 'Profile')
 # criar texto
 @api_view(['POST'])
 def create_text(request):
@@ -59,4 +63,9 @@ def conclude_devotional(request, devotionalPk):
 
     devotional.concluded_by.add(user) 
     devotional.save()
-    return Response("Concluido com sucesso.")
+
+    profile = get_object_or_404(Profile, user=user)
+    profile.myBirds += 1 
+    profile.save()
+
+    return Response({"birds": profile.myBirds, "concluido": "Parabéns"}, status=201)

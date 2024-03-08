@@ -13,7 +13,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ['user', 'allChapters']
+        fields = ['user', 'allChapters', 'myBirds']
 
 
 class UserWithoutChapter(serializers.ModelSerializer):
