@@ -89,9 +89,9 @@ def completed_this_card(request, chapter, card_id):
     
     if card_index is not None: 
         profile.allChapters[chapter][card_index]['completed'] = not profile.allChapters[chapter][card_index]['completed']
-        profile.myBirds += 1 
+        profile.myBibles += 1 
         profile.save()
-        return Response({"profile": profile.allChapters[chapter], "birds": profile.myBirds}, status=201)
+        return Response({"profile": profile.allChapters[chapter], "bibles": profile.myBibles}, status=201)
 
     else:
         return Response("not found")

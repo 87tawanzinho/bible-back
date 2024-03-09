@@ -65,7 +65,7 @@ def conclude_devotional(request, devotionalPk):
     devotional.save()
 
     profile = get_object_or_404(Profile, user=user)
-    profile.myBirds += 1 
+    profile.myPrays += 1 
     profile.save()
 
-    return Response({"birds": profile.myBirds, "concluido": "Parabéns"}, status=201)
+    return Response({"prays": profile.myPrays, "concluido": "Parabéns"}, status=201)

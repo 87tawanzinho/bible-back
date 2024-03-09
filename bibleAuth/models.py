@@ -20,7 +20,8 @@ class Profile(models.Model):
     allChapters = models.JSONField(default=allChapters, blank=True, null=True)
     devotionalWarn = models.BooleanField(default=False) 
 
-    myBirds = models.IntegerField(default=0)
+    myPrays = models.IntegerField(default=0)
+    myBibles = models.IntegerField(default=0)
     
 
     def __str__(self): 

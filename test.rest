@@ -9,7 +9,7 @@ Content-Type: application/json
 POST http://127.0.0.1:8000/signup
 Content-Type: application/json 
 
-{ "username":"taw55", "password": "1", "email": "123@gmail.com" }
+{ "username":"taw57", "password": "1", "email": "123@gmail.com" }
 
 ###
 
@@ -61,5 +61,5 @@ Content-Type: application/json
 
 POST http://127.0.0.1:8000/conclude_devotional/1/
 Content-Type: application/json 
-Authorization: Token a722aae507d46f811aebb5dc5c8842e1e6e6fdf4
+Authorization: Token 06a7ad89d395e5be58a7de12c76475ca11de512e
 ###
